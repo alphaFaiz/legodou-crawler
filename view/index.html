@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEGOdou crawler</title>
+</head>
+
+<body>
+    <h5>Input link</h5>
+    <input type="text" id="inputLink" />
+    <h5>Folder name</h5>
+    <input type="text" id="folderName" />
+    <div style="margin-top: 20px">
+        <button id="startBtn">Start download</button>
+    </div>
+    <script>
+        document.getElementById('startBtn').onclick = () => {
+            const data = {
+                inputLink: document.getElementById('inputLink').value,
+                folderName: document.getElementById('folderName').value
+            };
+
+            fetch('/api/postLinkToGetImages', {
+                    method: 'POST', // or 'PUT'
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    window.alert('done!')
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+</body>
+
+</html>
